@@ -1,49 +1,15 @@
+import { BorderOutlined, CheckSquareOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 
-const CardCandidato = ({ item }) => {
+const CardCandidato = ({ item, idVote, onSelected }) => {
   return (
     <Card
       hoverable
       style={{
-        width: 240,
+        width: 250,
+        backgroundColor: idVote === item.id ? "#e5e5e5" : "",
         boxShadow: idVote === item.id ? "0 4px 12px  rgba(0, 0, 0, 0.5)" : "",
       }}
-      actions={
-        !verResultados
-          ? []
-          : [
-              <h1 key={"porcentaje"}>
-                {/* <EditOutlined key="edit" /> */}
-                <span className="mr-2">
-                  {infoResultado.items.find(
-                    (item2) => parseInt(item2.candidato_id) === item.id
-                  )
-                    ? (
-                        (infoResultado.items.find(
-                          (item2) => parseInt(item2.candidato_id) === item.id
-                        ).cantidad /
-                          infoResultado.total) *
-                        100
-                      ).toFixed(1)
-                    : 0}
-                </span>
-                % ,
-              </h1>,
-              <h1 key={"cantidad"}>
-                {/* <EditOutlined key="edit" /> */}
-                <span className="mr-2">
-                  {infoResultado.items.find(
-                    (item2) => parseInt(item2.candidato_id) === item.id
-                  )
-                    ? infoResultado.items.find(
-                        (item2) => parseInt(item2.candidato_id) === item.id
-                      ).cantidad
-                    : 0}
-                </span>
-                Votos
-              </h1>,
-            ]
-      }
       cover={
         <img
           alt="example"
@@ -59,9 +25,7 @@ const CardCandidato = ({ item }) => {
         />
       }
       className="text-center"
-      onClick={() => {
-        setIdVote(idVote === item.id ? null : item.id);
-      }}
+      onClick={() => onSelected(idVote === item.id ? null : item.id)}
     >
       <Card.Meta title={item.name} description={item.name_partido} />
       {idVote === item.id ? (
